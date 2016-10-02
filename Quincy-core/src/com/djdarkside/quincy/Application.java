@@ -1,33 +1,42 @@
 package com.djdarkside.quincy;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeType.Bitmap;
+import com.djdarkside.quincy.screens.SplashScreen;
 
-public class Application extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+public class Application extends Game {
+	
+	public static final String TITLE = "Quincy";
+	public static final int V_WIDTH = 1280;
+	public static final int V_HEIGHT = V_WIDTH / 16 * 9;
+	public static final int SCALE = 1;
+	public static final String VERSION = "0.1";
+	
+	public OrthographicCamera cam;
+	public SpriteBatch batch;
+	public SplashScreen screen;
+	public BitmapFont font;
 	
 	@Override
 	public void create () {
+		cam = new OrthographicCamera();
+		cam.setToOrtho(false, V_WIDTH, V_HEIGHT);
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		this.setScreen(new SplashScreen(this));
+		font = new BitmapFont();
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		super.render();
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
 	}
 }
