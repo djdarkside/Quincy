@@ -1,9 +1,12 @@
 package com.djdarkside.quincy;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.djdarkside.quincy.screens.LoadingScreen;
 import com.djdarkside.quincy.screens.SplashScreen;
 
 public class Application extends Game {
@@ -19,13 +22,17 @@ public class Application extends Game {
 	public SplashScreen screen;
 	public BitmapFont font;
 	
+	public AssetManager assets;
+	
 	@Override
 	public void create () {
+		assets = new AssetManager();
 		cam = new OrthographicCamera();
 		cam.setToOrtho(false, V_WIDTH, V_HEIGHT);
 		batch = new SpriteBatch();
-		this.setScreen(new SplashScreen(this));
 		font = new BitmapFont();
+		font.setColor(Color.BLACK);
+		this.setScreen(new LoadingScreen(this));
 	}
 
 	@Override
@@ -36,5 +43,8 @@ public class Application extends Game {
 	@Override
 	public void dispose () {
 		batch.dispose();
+		font.dispose();
+		assets.dispose();
+		this.getScreen().dispose();
 	}
 }
