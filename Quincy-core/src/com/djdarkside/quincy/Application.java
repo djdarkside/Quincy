@@ -1,12 +1,15 @@
 package com.djdarkside.quincy;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.djdarkside.quincy.screens.LoadingScreen;
+import com.djdarkside.quincy.screens.MainMenuScreen;
 import com.djdarkside.quincy.screens.SplashScreen;
 
 public class Application extends Game {
@@ -24,6 +27,10 @@ public class Application extends Game {
 	
 	public AssetManager assets;
 	
+	public LoadingScreen lScreen;
+	public SplashScreen sScreen;
+	public MainMenuScreen menuScreen;
+	
 	@Override
 	public void create () {
 		assets = new AssetManager();
@@ -32,12 +39,20 @@ public class Application extends Game {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		font.setColor(Color.BLACK);
-		this.setScreen(new LoadingScreen(this));
+		
+		lScreen = new LoadingScreen(this);
+		sScreen = new SplashScreen(this);
+		menuScreen = new MainMenuScreen(this);
+		
+		this.setScreen(lScreen);
 	}
 
 	@Override
 	public void render () {
 		super.render();
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+			Gdx.app.exit();
+		}
 	}
 	
 	@Override
@@ -45,6 +60,8 @@ public class Application extends Game {
 		batch.dispose();
 		font.dispose();
 		assets.dispose();
-		this.getScreen().dispose();
+		lScreen.dispose();
+		sScreen.dispose();
+		menuScreen.dispose();
 	}
 }

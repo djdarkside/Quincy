@@ -27,9 +27,6 @@ public class LoadingScreen implements Screen {
 	public LoadingScreen(final Application app) {
 		this.app = app;
 		this.shapeRenderer = new ShapeRenderer();
-		this.progress = 0f;
-		
-		queueAssets();
 	}	
 	
 	private void queueAssets() {
@@ -39,14 +36,15 @@ public class LoadingScreen implements Screen {
 	
 	@Override
 	public void show() {
-		
+		this.progress = 0f;		
+		queueAssets();
 	}
 
 	private void update(float delta) {
 		// a + (b - a) * lerp
 		progress = MathUtils.lerp(progress, app.assets.getProgress(), .1f);
 		if (app.assets.update() && progress >= app.assets.getProgress() - .01f) {
-			app.setScreen(new SplashScreen(app));
+			app.setScreen(app.sScreen);
 		}		
 	}
 	
@@ -75,25 +73,21 @@ public class LoadingScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-
 		
 	}
 
 	@Override
 	public void pause() {
-
 		
 	}
 
 	@Override
 	public void resume() {
-
 		
 	}
 
 	@Override
 	public void hide() {
-
 		
 	}
 
