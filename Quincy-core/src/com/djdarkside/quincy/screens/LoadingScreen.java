@@ -2,9 +2,12 @@ package com.djdarkside.quincy.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.MathUtils;
 import com.djdarkside.quincy.Application;
 
 /**
@@ -17,12 +20,21 @@ import com.djdarkside.quincy.Application;
 public class LoadingScreen implements Screen {
 
 	private final Application app;
+	
 	private ShapeRenderer shapeRenderer;
+	private float progress;
 	
 	public LoadingScreen(final Application app) {
 		this.app = app;
 		this.shapeRenderer = new ShapeRenderer();
+		this.progress = 0f;
+		
 		queueAssets();
+	}	
+	
+	private void queueAssets() {
+		app.assets.load("img/splash.png", Texture.class);
+		app.assets.load("img/splash1.png", Texture.class);
 	}
 	
 	@Override
@@ -31,19 +43,33 @@ public class LoadingScreen implements Screen {
 	}
 
 	private void update(float delta) {
-		if (app.assets.update()) {
+		// a + (b - a) * lerp
+		progress = MathUtils.lerp(progress, app.assets.getProgress(), .1f);
+		if (app.assets.update() && progress >= app.assets.getProgress() - .01f) {
 			app.setScreen(new SplashScreen(app));
-		}
+		}		
 	}
 	
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		update(delta);
+		// Loading Bar
+		// Empty
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		shapeRenderer.setColor(Color.BLACK);
+		shapeRenderer.rect(32, app.cam.viewportHeight / 10 - 8, app.cam.viewportWidth - 64, 16);
+		//Full - Fills when assets are loaded
+		shapeRenderer.setColor(Color.BLUE);
+		shapeRenderer.rect(32, app.cam.viewportHeight / 10 - 8, progress * (app.cam.viewportWidth - 64), 16);
+		shapeRenderer.end();
+		//End Loading Bar
+		
 		
 		app.batch.begin();
-		app.font.draw(app.batch, "Loading", app.V_WIDTH / 2 - 24, 100);
+		app.font.draw(app.batch, "Loading", app.V_WIDTH / 2 - 24, 54);
 		app.batch.end();
 	}
 
@@ -73,13 +99,6 @@ public class LoadingScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		shapeRenderer.dispose();
-		
+		shapeRenderer.dispose();	
 	}
-	
-	private void queueAssets() {
-		app.assets.load("img/splash.png", Texture.class);
-		app.assets.load("img/splash1.png", Texture.class);
-	}
-
 }
