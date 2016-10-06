@@ -48,7 +48,7 @@ public class MainMenuScreen implements Screen {
 		update(delta);
 		
 		app.batch.begin();
-		app.font.draw(app.batch, "MAIN MENU", app.V_WIDTH / 2 - 24, 54);
+		app.font24.draw(app.batch, "MAIN MENU", app.V_WIDTH / 2 - 24, 54);
 		app.batch.end();
 	}
 
@@ -78,7 +78,7 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		stage.dispose();
 		shapeRenderer.dispose();	
+		stage.dispose();
 	}
 }

@@ -58,7 +58,7 @@ public class SplashScreen implements Screen {
 		update(delta);
 		stage.draw();
 		app.batch.begin();
-		app.font.draw(app.batch, "Where's Quincy?", app.V_WIDTH / 2 - 24, 100);
+		app.font24.draw(app.batch, "Where's Quincy?", app.V_WIDTH / 2 - 24, 100);
 		app.batch.end();
 		
 	}

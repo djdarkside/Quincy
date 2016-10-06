@@ -67,7 +67,7 @@ public class LoadingScreen implements Screen {
 		
 		
 		app.batch.begin();
-		app.font.draw(app.batch, "Loading", app.V_WIDTH / 2 - 24, 54);
+		app.font24.draw(app.batch, "Loading", app.V_WIDTH / 2 - 24, 54);
 		app.batch.end();
 	}
 
