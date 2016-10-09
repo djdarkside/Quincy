@@ -1,7 +1,10 @@
 package com.djdarkside.quincy.screens;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -12,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.djdarkside.quincy.Application;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 /**
  * @author djdarkside * 
@@ -31,6 +33,7 @@ public class MainMenuScreen implements Screen {
 	private Skin skin;
 	private TextButton buttonPlay, buttonExit;
 	private Image menuImage;
+	private Music menuMusic;
 	
 	public MainMenuScreen(final Application app) {
 		this.app = app;
@@ -52,6 +55,9 @@ public class MainMenuScreen implements Screen {
 		initButtons();
 		
 		Texture menuTex = app.assets.get("img/q.png", Texture.class);
+		menuMusic = app.assets.get("music/menu.mp3", Music.class);
+		menuMusic.play();
+		menuMusic.setVolume(0.5f);
 		menuImage = new Image(menuTex);
 		menuImage.setOrigin(0, 0);
 		menuImage.setPosition(app.V_WIDTH / 4 + 75, 480);
@@ -62,6 +68,16 @@ public class MainMenuScreen implements Screen {
 
 	private void update(float delta) {
 		stage.act(delta);
+		if (buttonPlay.isPressed()) {
+			System.out.println("Play Game Pressed");
+			menuMusic.stop();
+			app.setScreen(app.sScreen);
+			
+		}
+		if (buttonExit.isPressed()) {
+			System.out.println("Exit Pressed");
+			Gdx.app.exit();
+		}
 	}
 	
 	@Override
@@ -104,13 +120,13 @@ public class MainMenuScreen implements Screen {
 	
 	private void initButtons() {
 		buttonPlay = new TextButton("Play", skin, "default");
-		buttonPlay.setPosition(110, 260);
+		buttonPlay.setPosition(app.V_WIDTH / 2 - 150, 260);
 		buttonPlay.setSize(280, 60);
 		
 		buttonExit = new TextButton("Exit", skin, "default");
-		buttonExit.setPosition(110, 160);
+		buttonExit.setPosition(app.V_WIDTH / 2 - 150, 160);
 		buttonExit.setSize(280, 60);
-		
+			
 		stage.addActor(buttonPlay);
 		stage.addActor(buttonExit);
 	}

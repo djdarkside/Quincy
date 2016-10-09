@@ -2,12 +2,16 @@ package com.djdarkside.quincy.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.MathUtils;
 import com.djdarkside.quincy.Application;
 
@@ -35,6 +39,10 @@ public class LoadingScreen implements Screen {
 		app.assets.load("img/splash1.png", Texture.class);
 		app.assets.load("ui/uiskin.atlas", TextureAtlas.class);
 		app.assets.load("img/q.png", Texture.class);
+		app.assets.load("music/menu.mp3", Music.class);
+		app.assets.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+		app.assets.load("tile/mapfun.tmx", TiledMap.class);
+		
 	}
 	
 	@Override
