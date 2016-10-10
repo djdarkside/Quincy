@@ -55,7 +55,7 @@ public class LoadingScreen implements Screen {
 		// a + (b - a) * lerp
 		progress = MathUtils.lerp(progress, app.assets.getProgress(), .1f);
 		if (app.assets.update() && progress >= app.assets.getProgress() - .01f) {
-			app.setScreen(app.sScreen);
+			app.setScreen(app.menuScreen);
 		}		
 	}
 	

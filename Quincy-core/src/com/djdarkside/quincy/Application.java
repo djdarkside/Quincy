@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.djdarkside.quincy.screens.LoadingScreen;
 import com.djdarkside.quincy.screens.MainMenuScreen;
+import com.djdarkside.quincy.screens.PlayScreen;
 import com.djdarkside.quincy.screens.SplashScreen;
 
 public class Application extends Game {
@@ -31,6 +32,7 @@ public class Application extends Game {
 	public LoadingScreen lScreen;
 	public SplashScreen sScreen;
 	public MainMenuScreen menuScreen;
+	public PlayScreen playScreen;
 	
 	@Override
 	public void create () {
@@ -44,6 +46,7 @@ public class Application extends Game {
 		lScreen = new LoadingScreen(this);
 		sScreen = new SplashScreen(this);
 		menuScreen = new MainMenuScreen(this);
+		playScreen = new PlayScreen(this);
 		
 		this.setScreen(lScreen);
 	}
