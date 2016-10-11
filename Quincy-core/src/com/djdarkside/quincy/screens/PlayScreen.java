@@ -51,8 +51,7 @@ public class PlayScreen implements Screen {
 		this.skin.load(Gdx.files.internal("ui/uiskin.json"));	
 		
 		initNavigationButtonss();
-		initGrid();
-		
+		initGrid();		
 	}
 
 	public void update(float delta) {
